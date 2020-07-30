@@ -1,6 +1,5 @@
 const request = require('supertest');
 const Bootcamp = require('../../../models/Bootcamps');
-const { getMaxListeners } = require('../../../server');
 
 describe('/api/v1/bootcamps', () => {
   beforeEach(() => {
@@ -25,17 +24,15 @@ describe('/api/v1/bootcamps', () => {
   });
   describe('GET /:id', () => {
     it('Should return a valid bootcamp if id is valid', async () => {
-      const bootcamp = await Bootcamp.create({
-        name: 'bootcamp1',
-        description: 'description of bootcamp1',
+      const bootcamp = new Bootcamp({
+        name: 'validation1',
+        description: 'cest bon',
       });
+      await bootcamp.save();
 
-      const res = await request(server).get(
-        '/api/v1/bootcamps/' + bootcamp._id
-      );
-
+      const res = await request(server).get('/api/bootcamps/' + bootcamp._id);
       expect(res.status).toBe(200);
-      expect(res.body.data).toHaveProperty('name', bootcamp.name);
+      expect(res.body).toHaveProperty('name', bootcamp.name);
     });
   });
 });
