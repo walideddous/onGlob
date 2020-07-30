@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 
+const app = express();
+
 // Load env vars
 dotenv.config({ path: './config/config.env' });
 
@@ -12,7 +14,8 @@ connectDB();
 // Router files
 const bootcamps = require('./routes/bootcamps');
 
-const app = express();
+// Body parser
+app.use(express.json());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'developement') {
@@ -23,10 +26,6 @@ if (process.env.NODE_ENV === 'developement') {
 app.use('/api/v1/bootcamps', bootcamps);
 
 const PORT = process.env.PORT || 5000;
-
-app.get('/', (req, res) => {
-  res.status(200).send({ name: 'walid' });
-});
 
 const server = app.listen(
   PORT,
@@ -39,3 +38,5 @@ process.on('unhandledRejection', (err, promise) => {
   // Close server && exit process
   server.close(() => process.exit(1));
 });
+
+module.exports = server;
