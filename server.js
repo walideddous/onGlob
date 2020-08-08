@@ -22,6 +22,7 @@ const auth = require('./routes/auth');
 const users = require('./routes/users');
 const reviews = require('./routes/reviews');
 const profile = require('./routes/profiles');
+const posts = require('./routes/posts');
 
 // Body parser
 app.use(express.json());
@@ -47,6 +48,7 @@ app.use('/api/v1/auth', auth);
 app.use('/api/v1/auth/users', users);
 app.use('/api/v1/reviews', reviews);
 app.use('/api/v1/profiles', profile);
+app.use('/api/v1/posts', posts);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

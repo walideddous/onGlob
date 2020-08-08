@@ -1,9 +1,9 @@
 const asyncHandler = require('../middleware/async');
+const request = require('request');
 const Profile = require('../models/Profile');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const ErrorResponse = require('../utils/errorResponse');
-const { findOneAndUpdate } = require('../models/Profile');
 
 // @route  Get api/profile/me
 // @desc   Get current users profile
@@ -282,6 +282,11 @@ exports.deleteEducation = asyncHandler(async (req, res, next) => {
   profile.education.splice(removeIndex, 1);
 
   await profile.save();
+
+  res.status(200).json({
+    success: true,
+    data: profile,
+  });
 });
 
 // @route GET api/profile/github/:username
