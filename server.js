@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const connectDBTest = require('./config/dbTest');
 const fileupload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
@@ -13,7 +14,11 @@ const app = express();
 dotenv.config({ path: './config/config.env' });
 
 // Connect to Database
-connectDB();
+if (process.env.NODE_ENV === 'test') {
+  connectDBTest();
+} else {
+  connectDB();
+}
 
 // Router files
 const bootcamps = require('./routes/bootcamps');

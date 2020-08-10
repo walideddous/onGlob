@@ -1,4 +1,5 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
 const Bootcamp = require('../../../models/Bootcamps');
 
 describe('/api/v1/bootcamps', () => {
@@ -7,7 +8,7 @@ describe('/api/v1/bootcamps', () => {
   });
   afterEach(async () => {
     server.close();
-    await Bootcamp.remove({});
+    // await Bootcamp.remove({});
   });
   describe('GET', () => {
     it('Should return 200 if all bootcamps returned', async () => {
@@ -25,8 +26,24 @@ describe('/api/v1/bootcamps', () => {
   describe('GET /:id', () => {
     it('Should return a valid bootcamp if id is valid', async () => {
       const bootcamp = new Bootcamp({
-        name: 'validation1',
-        description: 'cest bon',
+        name: 'Test Bootcamp',
+        description:
+          'Is coding your passion? Codemasters will give you the skills and the tools to become the best developer possible. We specialize in front end and full stack web development',
+        website: 'https://devcentral.com',
+        phone: '(444) 444-4444',
+        email: 'enroll@devcentral.com',
+        address: '45 Upper College Rd Kingston RI 02881',
+        careers: [
+          'Mobile Development',
+          'Web Development',
+          'Data Science',
+          'Business',
+        ],
+        housing: false,
+        jobAssistance: true,
+        jobGuarantee: true,
+        acceptGi: true,
+        user: mongoose.Types.ObjectId(),
       });
       await bootcamp.save();
 
