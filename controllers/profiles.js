@@ -50,7 +50,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   if (bio) profileFields.bio = bio;
   if (status) profileFields.status = status;
   if (githubusername) profileFields.githubusername = githubusername;
-  if (skills) {
+  if (skills && skills.length > 1) {
     profileFields.skills = skills.split(',').map((skill) => skill.trim());
   }
 
@@ -62,33 +62,22 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
   if (instagram) profileFields.social.instagram = instagram;
   if (linkedin) profileFields.social.linkedin = linkedin;
 
-  //create
-  profile = await Profile.create(profileFields);
-
-  res.status(200).json({
-    success: true,
-    data: profile,
-  });
-});
-
-// @route PUT  api/profile
-// @desc Update user profile
-// @ access Private
-
-exports.updateProfile = asyncHandler(async (req, res, next) => {
   let profile = await Profile.findOne({ user: req.user.id });
 
-  if (!profile) {
-    return next(
-      new ErrorResponse(`No profile exist with the id of ${req.user.id}`, 404)
+  if (profile) {
+    // Update
+    profile = await Profile.findOneAndUpdate(
+      { user: req.user.id },
+      { $set: profileFields },
+      { new: true }
     );
+
+    return res.json(profile);
   }
 
-  profile = await Profile.findOneAndUpdate({ user: req.user.id }, req.body, {
-    new: true,
-    runValidators: true,
-  });
-
+  //create
+  profile = new Profile(profileFields);
+  await profile.save();
   res.status(200).json({
     success: true,
     data: profile,

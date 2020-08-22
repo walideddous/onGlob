@@ -9,6 +9,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  CLEAR_PROFILE,
 } from './types';
 import setAuthToken from './../utils/setAuthToken';
 
@@ -70,7 +71,6 @@ export const loginUser = ({ email, password }: any) => async (
 
   try {
     const res = await axios.post('/api/v1/auth/login', body, config);
-    console.log(res);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -84,5 +84,8 @@ export const loginUser = ({ email, password }: any) => async (
 export const logout = () => (dispatch: any) => {
   dispatch({
     type: LOGOUT,
+  });
+  dispatch({
+    type: CLEAR_PROFILE,
   });
 };

@@ -8,7 +8,7 @@ const Alert = ({ alerts }: any) =>
   alerts.map((alert: any) => (
     <Fragment>
       <div key={alert.id} className={`alert alert-${alert.alertType}`}>
-        {alert.error}
+        {alert.msg}
       </div>
     </Fragment>
   ));

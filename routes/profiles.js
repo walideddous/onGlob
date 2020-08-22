@@ -4,7 +4,6 @@ const {
   getUsers,
   getUserById,
   createProfile,
-  updateProfile,
   deleteProfile,
   updateExperience,
   deleteExperience,
@@ -22,7 +21,6 @@ router
   .route('/')
   .get(getUsers)
   .post(protect, createProfile)
-  .put(protect, updateProfile)
   .delete(protect, deleteProfile);
 
 router.route('/experience').put(protect, updateExperience);
