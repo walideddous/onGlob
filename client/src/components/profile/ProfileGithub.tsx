@@ -9,7 +9,7 @@ import { getProfileGithub } from '../../actions/profile';
 const ProfileGithub = ({ getProfileGithub, username, repos }: any) => {
   useEffect(() => {
     getProfileGithub(username);
-  }, [getProfileGithub, username]);
+  }, [getProfileGithub(username)]);
 
   return (
     <div className='profile-github'>

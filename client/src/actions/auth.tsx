@@ -85,7 +85,4 @@ export const logout = () => (dispatch: any) => {
   dispatch({
     type: LOGOUT,
   });
-  dispatch({
-    type: CLEAR_PROFILE,
-  });
 };

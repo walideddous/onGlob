@@ -107,7 +107,7 @@ exports.likePost = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: `Post with the id${req.params.id} has been liked from ${req.user.name}`,
+    data: post.likes,
   });
 });
 
@@ -140,7 +140,7 @@ exports.unlikePost = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: `Post with the id${req.params.id} has been unliked from ${req.user.name}`,
+    data: post.likes,
   });
 });
 
