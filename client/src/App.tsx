@@ -71,6 +71,7 @@ const App = () => {
               <PrivateRoute exact path='/posts' component={Posts} />
               <PrivateRoute exact path='/posts/:id' component={Post} />
             </Switch>
+            <h1> Hallo </h1>
           </section>
         </Fragment>
       </Router>
