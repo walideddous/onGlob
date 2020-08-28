@@ -9,6 +9,9 @@ const Navbar = ({ auth, logout }: any) => {
   const authLinks = (
     <ul>
       <li>
+        <Link to='/Alan'>Alan</Link>
+      </li>
+      <li>
         <Link to='/profiles'>Developers</Link>
       </li>
       <li>
